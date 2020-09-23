@@ -8,13 +8,16 @@
 #import <Foundation/Foundation.h>
 #import "PHPerson.h"
 #import <objc/runtime.h>
+#import "PHFather.h"
 
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool { 
         
         PHPerson * person = [[PHPerson alloc]init];
+        PHFather * father = [[PHFather alloc]init];
         Class cls = object_getClass(person);
+        [father performSelector:@selector(sdd)];
         [person doFirst];
         [person doSecond];
         [person doThird];
