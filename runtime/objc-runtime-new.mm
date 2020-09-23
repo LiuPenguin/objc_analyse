@@ -6046,10 +6046,11 @@ resolveMethod_locked(id inst, SEL sel, Class cls, int behavior)
         // try [nonMetaClass resolveClassMethod:sel]
         // and [cls resolveInstanceMethod:sel]
         resolveClassMethod(inst, sel, cls);
-        if (!lookUpImpOrNil(inst, sel, cls)) {
+        if (!lookUpImpOrNil(inst, sel, cls)) {//为什么还有这个代码操作呢？ 类方法本身就是元类的实例方法所以，如果类方法在元类中没有找到那就找元类的实例方法
             resolveInstanceMethod(inst, sel, cls);
         }
     }
+    //动态方法决议 走两次 为了容错 给你犯错的机会 
 
     // chances are that calling the resolver have populated the cache
     // so attempt using it
