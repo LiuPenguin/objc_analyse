@@ -18,6 +18,7 @@ int main(int argc, const char * argv[]) {
         PHFather * father = [[PHFather alloc]init];
         Class cls = object_getClass(person);
         [father performSelector:@selector(sdd)];
+        [PHFather performSelector:@selector(syy)];
         [person doFirst];
         [person doSecond];
         [person doThird];
