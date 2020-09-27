@@ -521,6 +521,7 @@ extern IMP lookUpImpOrForward(id obj, SEL, Class cls, int behavior);
 static inline IMP
 lookUpImpOrNil(id obj, SEL sel, Class cls, int behavior = 0)
 {
+    //这里会判断IMP是否是消息转发而来的，如果是，就不返回。
     return lookUpImpOrForward(obj, sel, cls, behavior | LOOKUP_CACHE | LOOKUP_NIL);
 }
 

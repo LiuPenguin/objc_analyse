@@ -5941,12 +5941,16 @@ static void resolveClassMethod(id inst, SEL sel, Class cls)
 
     if (!lookUpImpOrNil(inst, @selector(resolveClassMethod:), cls)) {
         // Resolver not implemented.
+        // 如果你没有实现类方法 +(BOOL)resolveClassMethod:(SEL)sel
+        // NSObject也有实现，所以一般不会走这里
+        // 注意这里的第一个参数是cls，是元类
         return;
     }
 
     Class nonmeta;
     {
         mutex_locker_t lock(runtimeLock);
+         // 获取 元类的对象，即类。换句话说，nonmeta 也就是 inst
         nonmeta = getMaybeUnrealizedNonMetaClass(cls, inst);
         // +initialize path should have realized nonmeta already
         if (!nonmeta->isRealized()) {
@@ -5959,8 +5963,8 @@ static void resolveClassMethod(id inst, SEL sel, Class cls)
 
     // Cache the result (good or bad) so the resolver doesn't fire next time.
     // +resolveClassMethod adds to self->ISA() a.k.a. cls
+    // 再找一次imp
     IMP imp = lookUpImpOrNil(inst, sel, cls);
-
     if (resolved  &&  PrintResolving) {
         if (imp) {
             _objc_inform("RESOLVE: method %c[%s %s] "
@@ -5994,10 +5998,14 @@ static void resolveInstanceMethod(id inst, SEL sel, Class cls)
 
     if (!lookUpImpOrNil(cls, resolve_sel, cls->ISA())) {
         // Resolver not implemented.
+         // 如果你没有实现类方法 +(BOOL)resolveInstanceMethod:(SEL)sel
+        // NSObject也有实现，所以一般不会走这里
+        // 注意这里传入的第一个参数是：cls->ISA()，也就是元类
         return;
     }
-
+    // 调用类方法： +(BOOL)resolveInstanceMethod:(SEL)sel
     BOOL (*msg)(Class, SEL, SEL) = (typeof(msg))objc_msgSend;
+    // 再找一次imp（这次是sel，而不是resolveInstanceMethod）
     bool resolved = msg(cls, resolve_sel, sel);
 
     // Cache the result (good or bad) so the resolver doesn't fire next time.
@@ -6020,6 +6028,14 @@ static void resolveInstanceMethod(id inst, SEL sel, Class cls)
                          cls->nameForLogging(), sel_getName(sel));
         }
     }
+    /**
+     第一次的调用是判断类（包括其父类，直至根类）是否实现了+(BOOL)resolveInstanceMethod:(SEL)sel类方法
+     SEL_resolveInstanceMethod相当于@selector(resolveInstanceMethod:)，NSObject类中有实现这个类方法（返回的是NO，会影响是否打印），所以一般会接着往下走。
+
+     第二次的调用的目的是检测是否有sel对应的IMP。假如你在+(BOOL)resolveInstanceMethod:(SEL)sel中添加了sel的函数地址IMP，此时再次去查找这个IMP就能找到。
+     
+     注意到这两次调用中，resolver都是NO，因此在其调用lookUpImpOrForward时不会触发 消息的解析，仅仅是从“类、父类、...、根类”的缓存中和方法列表中找IMP，没找到会触发 消息转发。
+     */
 }
 
 

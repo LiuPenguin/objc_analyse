@@ -15,9 +15,5 @@
 - (void)doSecond{
     
 }
-- (void)doThird{
-    
-}
-
 
 @end

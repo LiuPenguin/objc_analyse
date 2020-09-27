@@ -11,6 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PHFather : PHPerson
 
+-(void)sdd;
+
++(void)syy;
+
 @end
 
 NS_ASSUME_NONNULL_END

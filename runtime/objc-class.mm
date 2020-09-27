@@ -736,9 +736,9 @@ bool logMessageSend(bool isClassMethod,
             implementingClass,
             sel_getName(selector));
 
-    objcMsgLogLock.lock();
+    objcMsgLogLock.lock();//打印不出东西把这东西注掉
     write (objcMsgLogFD, buf, strlen(buf));
-    objcMsgLogLock.unlock();
+    objcMsgLogLock.unlock();//打印不出东西把这东西注掉
 
     // Tell caller to not cache the method
     return false;

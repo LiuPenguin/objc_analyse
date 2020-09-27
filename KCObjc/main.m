@@ -8,21 +8,25 @@
 #import <Foundation/Foundation.h>
 #import "PHPerson.h"
 #import <objc/runtime.h>
+#include <objc/message.h>
+#import "objc-class.h"
 #import "PHFather.h"
 
+extern  void instrumentObjcMessageSends(BOOL flag);
 
 int main(int argc, const char * argv[]) {
-    @autoreleasepool { 
+    @autoreleasepool {
         
-        PHPerson * person = [[PHPerson alloc]init];
-        PHFather * father = [[PHFather alloc]init];
-        Class cls = object_getClass(person);
-        [father performSelector:@selector(sdd)];
-        [PHFather performSelector:@selector(syy)];
-        [person doFirst];
-        [person doSecond];
-        [person doThird];
-        NSLog(@"");
+        PHPerson * father = [PHPerson alloc];
+        instrumentObjcMessageSends(YES);
+        [father doThird];
+        instrumentObjcMessageSends(NO);
+//        PHFather * father = [PHFather alloc];
+//        instrumentObjcMessageSends(YES);
+//        [father sdd];
+//        instrumentObjcMessageSends(NO);
+//        [PHFather syy];
+        NSLog(@"Hello, World!");
     }
     return 0;
 }
