@@ -7,12 +7,16 @@
 
 #import "PHPerson.h"
 
+
 @implementation PHPerson
 
 - (void)doFirst{
     
 }
 - (void)doSecond{
+    
+}
+- (void)doThird{
     
 }
 

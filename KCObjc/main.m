@@ -10,21 +10,82 @@
 #import <objc/runtime.h>
 #include <objc/message.h>
 #import "objc-class.h"
-#import "PHFather.h"
+
+@interface PHAnimal : NSObject
+-(void)sdd;
+@end
+@implementation PHAnimal
+-(void)sdd{
+    NSLog(@"%s",__func__);
+}
+@end
+
+@interface PHFather : PHPerson
+
+-(void)sdd;
+
++(void)syy;
+
+@end
+
+@implementation PHFather
+
+- (id)forwardingTargetForSelector:(SEL)aSelector{
+    NSLog(@"%s - %@",__func__,NSStringFromSelector(aSelector));
+
+//     runtime + aSelector + addMethod + imp
+    //将消息的接收者指定为LGStudent，在LGStudent中查找say666的实现
+//    return [PHAnimal alloc];
+    return [super forwardingTargetForSelector:aSelector];
+}
+
+//void dynamicMethodIMP(id self, SEL _cmd) {
+//    NSLog(@" >> dynamicMethodIMP");
+//}
+//
+//
+//+(BOOL)resolveInstanceMethod:(SEL)sel{
+//    NSLog(@" >> Instance resolving %@", NSStringFromSelector(sel));
+//    if (sel == @selector(sdd)) {
+//        class_addMethod([self class], sel, (IMP)dynamicMethodIMP, "v@:");
+//        return YES;
+//    }
+//    return [super resolveInstanceMethod:sel];
+//}
+
+
+
+//void dynamicClassMethodIMP(id self, SEL _cmd) {
+//    NSLog(@" >> dynamicClassMethodIMP");
+//}
+//
+//+ (void)lgClassMethod{
+//    NSLog(@"%s",__func__);
+//}
+
+
+
+//+ (BOOL)resolveClassMethod:(SEL)sel{
+//    NSLog(@" >> Class resolving----- %@", NSStringFromSelector(sel));
+//    if (sel == @selector(syy)) {
+//        IMP imp           = class_getMethodImplementation(objc_getMetaClass("PHFather"), NSSelectorFromString(@"lgClassMethod"));
+//        Method sayMMethod = class_getInstanceMethod(objc_getMetaClass("PHFather"), NSSelectorFromString(@"lgClassMethod"));
+//        const char *type  = method_getTypeEncoding(sayMMethod);
+//        return class_addMethod(objc_getMetaClass("PHFather"), sel, imp, type);
+//    }
+//    return YES;
+//}
+
+
+@end
+
 
 extern  void instrumentObjcMessageSends(BOOL flag);
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        
-        PHPerson * father = [PHPerson alloc];
-        instrumentObjcMessageSends(YES);
-        [father doThird];
-        instrumentObjcMessageSends(NO);
-//        PHFather * father = [PHFather alloc];
-//        instrumentObjcMessageSends(YES);
-//        [father sdd];
-//        instrumentObjcMessageSends(NO);
+        PHFather * father = [PHFather alloc];
+        [father sdd];
 //        [PHFather syy];
         NSLog(@"Hello, World!");
     }
