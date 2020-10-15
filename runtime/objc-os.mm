@@ -917,6 +917,7 @@ void _objc_init(void)
     initialized = true;
     
     // fixme defer initialization until an objc-using image is found?
+    //读取影响运行时的环境变量，如果需要，还可以打开环境变量帮助 export OBJC_HRLP = 1
     environ_init();
     tls_init();
     static_init();
