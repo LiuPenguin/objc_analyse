@@ -3462,7 +3462,8 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
         ts.log("IMAGE TIMES: first time tasks");
     }
 
-    // Fix up @selector references
+    // Fix up @selector references 修复@selector引用
+    // sel 不是简单的字符串，而是带地址的字符串
     static size_t UnfixedSelectors;
     {
         mutex_locker_t lock(selLock);
@@ -3470,6 +3471,7 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
             if (hi->hasPreoptimizedSelectors()) continue;
 
             bool isBundle = hi->isBundle();
+            //通过_getObjc2SelectorRefs拿到Mach-O中的静态段__objc_selrefs
             SEL *sels = _getObjc2SelectorRefs(hi, &count);
             UnfixedSelectors += count;
             for (i = 0; i < count; i++) {

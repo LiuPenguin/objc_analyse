@@ -827,6 +827,7 @@ void cache_init()
         count++;
     }
 
+    //为当前任务注册一组可重新启动的缓存
     kr = task_restartable_ranges_register(mach_task_self(),
                                           objc_restartableRanges, count);
     if (kr == KERN_SUCCESS) return;

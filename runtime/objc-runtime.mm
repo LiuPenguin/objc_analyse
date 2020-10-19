@@ -424,7 +424,8 @@ void environ_init(void)
         }
 
         for (size_t i = 0; i < sizeof(Settings)/sizeof(Settings[0]); i++) {
-            const option_t *opt = &Settings[i];            
+            const option_t *opt = &Settings[i];
+            //将for循环单独拿出来，去除所有条件，打印环境变量 去除两个判断条件
             if (PrintHelp) _objc_inform("%s: %s", opt->env, opt->help);
             if (PrintOptions && *opt->var) _objc_inform("%s is set", opt->env);
         }

@@ -496,8 +496,9 @@ objc_setExceptionMatcher(objc_exception_matcher fn)
 objc_uncaught_exception_handler 
 objc_setUncaughtExceptionHandler(objc_uncaught_exception_handler fn)
 {
+    //    fn为设置的异常句柄 传入的函数，为外界给的
     objc_uncaught_exception_handler result = uncaught_handler;
-    uncaught_handler = fn;
+    uncaught_handler = fn;//赋值
     return result;
 }
 
@@ -697,7 +698,7 @@ static void _objc_terminate(void)
             __cxa_rethrow();
         } @catch (id e) {
             // It's an objc object. Call Foundation's handler, if any.
-            (*uncaught_handler)((id)e);
+            (*uncaught_handler)((id)e);//扔出一场
             (*old_terminate)();
         } @catch (...) {
             // It's not an objc object. Continue to C++ terminate.

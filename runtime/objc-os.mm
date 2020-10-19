@@ -919,13 +919,28 @@ void _objc_init(void)
     // fixme defer initialization until an objc-using image is found?
     //读取影响运行时的环境变量，如果需要，还可以打开环境变量帮助 export OBJC_HRLP = 1
     environ_init();
+    //关于线程key的绑定，例如线程数据的析构函数
     tls_init();
+     //运行C++静态构造函数，在dyld调用我们的静态析构函数之前，libc会调用_objc_init(),因此我们必须自己做
     static_init();
+    //runtime运行时环境初始化，里面主要是unattachedCategories、allocatedClasses -- 分类初始化
     runtime_init();
+     //初始化libobjc的异常处理系统
     exception_init();
+    //缓存条件初始化
     cache_init();
+      //启动回调机制，通常这不会做什么，因为所有的初始化都是惰性的，但是对于某些进程，我们会迫不及待地加载trampolines dylib
     _imp_implementationWithBlock_init();
 
+    /*
+       _dyld_objc_notify_register -- dyld 注册的地方
+       - 仅供objc运行时使用
+       - 注册处理程序，以便在映射、取消映射 和初始化objc镜像文件时使用，dyld将使用包含objc_image_info的镜像文件数组，回调 mapped 函数
+       
+       map_images:  dyld将image镜像文件加载进内存时，会触发该函数
+       load_images：dyld初始化image会触发该函数
+       unmap_image：dyld将image移除时会触发该函数
+       */
     _dyld_objc_notify_register(&map_images, load_images, unmap_image);
 
 #if __OBJC2__
