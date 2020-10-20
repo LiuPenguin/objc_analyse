@@ -139,7 +139,7 @@ static SEL __sel_registerName(const char *name, bool shouldLock, bool copy)
     if (result) return result;
     
     conditional_mutex_locker_t lock(selLock, shouldLock);
-	auto it = namedSelectors.get().insert(name);
+	auto it = namedSelectors.get().insert(name);//即将sel插入namedSelectors哈希表
 	if (it.second) {
 		// No match. Insert.
 		*it.first = (const char *)sel_alloc(name, copy);

@@ -132,6 +132,8 @@
 		87BB4EA70EC39854005D08E1 /* objc-probes.d in Sources */ = {isa = PBXBuildFile; fileRef = 87BB4E900EC39633005D08E1 /* objc-probes.d */; };
 		9672F7EE14D5F488007CEC96 /* NSObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9672F7ED14D5F488007CEC96 /* NSObject.mm */; };
 		C2E6D3FC2225DCF00059DFAA /* DenseMapExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E6D3FB2225DCF00059DFAA /* DenseMapExtras.h */; };
+		D42595A2253D39920088E6F3 /* PHPerson+PA.m in Sources */ = {isa = PBXBuildFile; fileRef = D42595A1253D39920088E6F3 /* PHPerson+PA.m */; };
+		D42595A5253D399D0088E6F3 /* PHPerson+PB.m in Sources */ = {isa = PBXBuildFile; fileRef = D42595A4253D399C0088E6F3 /* PHPerson+PB.m */; };
 		D4971A5B2521759600596045 /* PHAnimal.m in Sources */ = {isa = PBXBuildFile; fileRef = D4971A5A2521759600596045 /* PHAnimal.m */; };
 		D4971A5E252175D500596045 /* PHFather.m in Sources */ = {isa = PBXBuildFile; fileRef = D4971A5D252175D500596045 /* PHFather.m */; };
 		E8923DA5116AB2820071B552 /* objc-block-trampolines.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8923DA0116AB2820071B552 /* objc-block-trampolines.mm */; };
@@ -282,6 +284,10 @@
 		BC8B5D1212D3D48100C78A5B /* libauto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libauto.dylib; path = /usr/lib/libauto.dylib; sourceTree = "<absolute>"; };
 		C2E6D3FB2225DCF00059DFAA /* DenseMapExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DenseMapExtras.h; path = runtime/DenseMapExtras.h; sourceTree = "<group>"; };
 		D2AAC0630554660B00DB518D /* libobjc.A.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libobjc.A.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		D42595A0253D39920088E6F3 /* PHPerson+PA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHPerson+PA.h"; sourceTree = "<group>"; };
+		D42595A1253D39920088E6F3 /* PHPerson+PA.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PHPerson+PA.m"; sourceTree = "<group>"; };
+		D42595A3253D399C0088E6F3 /* PHPerson+PB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHPerson+PB.h"; sourceTree = "<group>"; };
+		D42595A4253D399C0088E6F3 /* PHPerson+PB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PHPerson+PB.m"; sourceTree = "<group>"; };
 		D4971A592521759600596045 /* PHAnimal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAnimal.h; sourceTree = "<group>"; };
 		D4971A5A2521759600596045 /* PHAnimal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAnimal.m; sourceTree = "<group>"; };
 		D4971A5C252175D500596045 /* PHFather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHFather.h; sourceTree = "<group>"; };
@@ -408,6 +414,10 @@
 				7A88076624CACD8C0070C15B /* PHPerson.m */,
 				D4971A592521759600596045 /* PHAnimal.h */,
 				D4971A5A2521759600596045 /* PHAnimal.m */,
+				D42595A0253D39920088E6F3 /* PHPerson+PA.h */,
+				D42595A1253D39920088E6F3 /* PHPerson+PA.m */,
+				D42595A3253D399C0088E6F3 /* PHPerson+PB.h */,
+				D42595A4253D399C0088E6F3 /* PHPerson+PB.m */,
 			);
 			path = KCObjc;
 			sourceTree = "<group>";
@@ -747,6 +757,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D42595A5253D399D0088E6F3 /* PHPerson+PB.m in Sources */,
+				D42595A2253D39920088E6F3 /* PHPerson+PA.m in Sources */,
 				7A88076124CACD200070C15B /* main.m in Sources */,
 				7A88076724CACD8C0070C15B /* PHPerson.m in Sources */,
 				D4971A5B2521759600596045 /* PHAnimal.m in Sources */,
@@ -1153,6 +1165,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
 		};
@@ -1204,6 +1217,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Release;
 		};

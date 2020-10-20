@@ -10,14 +10,15 @@
 
 @implementation PHPerson
 
-- (void)doFirst{
-    
+
+- (void)doInstance_method2{
+    NSLog(@"%s",__func__);
 }
-- (void)doSecond{
-    
+- (void)doInstance_method1{
+    NSLog(@"%s",__func__);
 }
-- (void)doThird{
-    
+- (void)doInstance_method3{
+    NSLog(@"%s",__func__);
 }
 
 @end

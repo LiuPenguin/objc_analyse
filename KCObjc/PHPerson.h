@@ -10,9 +10,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PHPerson : NSObject
-- (void)doFirst;
-- (void)doSecond;
-- (void)doThird;
+- (void)doInstance_method2;
+- (void)doInstance_method1;
+- (void)doInstance_method3;
 @end
 
 NS_ASSUME_NONNULL_END

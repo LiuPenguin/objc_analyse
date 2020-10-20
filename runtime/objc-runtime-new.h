@@ -1087,10 +1087,10 @@ public:
 
     const class_ro_t *ro() const {//成员变量（猜的）
         auto v = get_ro_or_rwe();
-        if (slowpath(v.is<class_rw_ext_t *>())) {
+        if (slowpath(v.is<class_rw_ext_t *>())) {//如果有运行时，从rw中读取
             return v.get<class_rw_ext_t *>()->ro;
         }
-        return v.get<const class_ro_t *>();
+        return v.get<const class_ro_t *>();//如果没有运行时，从ro中读取
     }
 
     void set_ro(const class_ro_t *ro) {//类方法列表（猜）
